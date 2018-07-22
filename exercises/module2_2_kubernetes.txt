@@ -1,0 +1,18 @@
+# Module 2_2: Kubernetes
+
+# Setting a default project
+gcloud config set project PROJECT_D
+
+# Creating a Kubernetes Engine cluster
+gcloud container clusters create CLUSTER_NAME
+
+# Get authentication credentials for the cluste
+gcloud container clusters get-credentials 
+
+# Creating the Deployment
+kubectl run hello-server --image gcr.io/google-samples/hello-app:1.0 --port 8080
+
+# Expose the Deployment
+kubectl expose deployment hello-server --type LoadBalancer --port 80 --target-port 8080
+
+http://External_IP/

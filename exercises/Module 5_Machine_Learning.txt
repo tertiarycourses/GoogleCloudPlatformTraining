@@ -1,0 +1,179 @@
+# Module 5: AI and Machine Learning
+
+# Check CTPU config
+ctpu print-config
+
+# List of CTPU commmand
+ctpu
+
+# Create VM with CTPU
+ctpu up
+
+# Test out Tensorflow
+python -c "import tensorflow; print(tensorflow.VERSION)"
+
+# Create a python file
+pico cloud-tpu.py
+
+# Copy and paste to the python file
+
+import os
+import tensorflow as tf
+from tensorflow.contrib import tpu
+from tensorflow.contrib.cluster_resolver import TPUClusterResolver
+
+def axy_computation(a, x, y):
+  return a * x + y
+
+inputs = [
+    3.0,
+    tf.ones([3, 3], tf.float32),
+    tf.ones([3, 3], tf.float32),
+]
+
+tpu_computation = tpu.rewrite(axy_computation, inputs)
+
+tpu_grpc_url = TPUClusterResolver(
+    tpu=[os.environ['TPU_NAME']]).get_master()
+
+with tf.Session(tpu_grpc_url) as sess:
+  sess.run(tpu.initialize_system())
+  sess.run(tf.global_variables_initializer())
+  output = sess.run(tpu_computation)
+  print(output)
+  sess.run(tpu.shutdown_system())
+
+print('Done!')
+
+# Run the tensorflow program
+python cloud-tpu.py
+
+# Exit the VM
+exit
+
+# Delete VM anc CTPU
+ctpu delete
+
+# Running MNIST on Cloud TPU
+
+ctpu up
+python -c "import tensorflow; print(tensorflow.VERSION)"
+
+# Download MNIST data
+python /usr/share/tensorflow/tensorflow/examples/how_tos/reading_data/convert_to_records.py --directory=./data
+gunzip ./data/*.gz
+
+# Upload the data to Cloud Storage
+export STORAGE_BUCKET=gs://YOUR-BUCKET-NAME
+export STORAGE_BUCKET=gs://test4-12345
+
+gsutil cp -r ./data ${STORAGE_BUCKET}
+
+# Set up TensorBoard
+tensorboard --logdir=${STORAGE_BUCKET}/output &
+
+# Run the MNIST model on CTPU
+
+ctpu up
+
+python /usr/share/models/official/mnist/mnist_tpu.py \
+  --tpu=$TPU_NAME \
+  --data_dir=${STORAGE_BUCKET}/data \
+  --model_dir=${STORAGE_BUCKET}/output \
+  --use_tpu=True \
+  --iterations=500 \
+  --train_steps=2000
+
+exit
+
+ctpu delete
+
+gsutil rm -r gs://YOUR-BUCKET-NAME
+gsutil rm -r gs://test4-12345
+
+
+# Train using Cloud ML
+
+virtualenv cmle-env
+source cmle-env/bin/activate
+python -V
+pip install pip
+
+gcloud auth login		
+gcloud ml-engine models list
+pip install  --upgrade tensorflow
+
+cd cloudml-samples-master/census/estimator
+
+mkdir data
+gsutil -m cp gs://cloud-samples-data/ml-engine/census/data/* data/
+
+TRAIN_DATA=$(pwd)/data/adult.data.csv
+EVAL_DATA=$(pwd)/data/adult.test.csv
+
+pip install -r ../requirements.txt
+
+MODEL_DIR=output
+rm -rf $MODEL_DIR/*
+
+gcloud ml-engine local train \
+    --module-name trainer.task \
+    --package-path trainer/ \
+    --job-dir $MODEL_DIR \
+    -- \
+    --train-files $TRAIN_DATA \
+    --eval-files $EVAL_DATA \
+    --train-steps 1000 \
+    --eval-steps 100
+
+# View Output on Tensorboard
+tensorboard --logdir=$MODEL_DIR
+
+PROJECT_ID=$(gcloud config list project --format "value(core.project)")
+BUCKET_NAME=${PROJECT_ID}-mlengine
+
+REGION=us-central1
+gsutil mb -l $REGION gs://$BUCKET_NAME
+
+gsutil cp -r data gs://$BUCKET_NAME/data
+
+TRAIN_DATA=gs://$BUCKET_NAME/data/adult.data.csv
+EVAL_DATA=gs://$BUCKET_NAME/data/adult.test.csv
+
+gsutil cp ../test.json gs://$BUCKET_NAME/data/test.json
+TEST_JSON=gs://$BUCKET_NAME/data/test.json
+
+JOB_NAME=census_single_1
+OUTPUT_PATH=gs://$BUCKET_NAME/$JOB_NAME
+gcloud ml-engine jobs submit training $JOB_NAME \
+    --job-dir $OUTPUT_PATH \
+    --runtime-version 1.8 \
+    --module-name trainer.task \
+    --package-path trainer/ \
+    --region $REGION \
+    -- \
+    --train-files $TRAIN_DATA \
+    --eval-files $EVAL_DATA \
+    --train-steps 1000 \
+    --eval-steps 100 \
+    --verbosity DEBUG
+
+# Text to Speech API
+
+curl -H "Authorization: Bearer "$(gcloud auth application-default print-access-token) \
+  -H "Content-Type: application/json; charset=utf-8" \
+  --data "{
+    'input':{
+      'text':'Android is a mobile operating system developed by Google,
+         based on the Linux kernel and designed primarily for
+         touchscreen mobile devices such as smartphones and tablets.'
+    },
+    'voice':{
+      'languageCode':'en-gb',
+      'name':'en-GB-Standard-A',
+      'ssmlGender':'FEMALE'
+    },
+    'audioConfig':{
+      'audioEncoding':'MP3'
+    }
+  }" "https://texttospeech.googleapis.com/v1beta1/text:synthesize" > synthesize-text.txt

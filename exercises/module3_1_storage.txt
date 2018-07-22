@@ -1,0 +1,20 @@
+# Module 3: Storage
+
+# Login to your project
+gcloud auth login
+gcloud config set project PROJECT_ID
+
+# List all buckets
+gsutil ls
+
+# List the files and folder in a bucket
+gsutil ls gs://[BUCKET_NAME]
+
+# To upload file from a bucket
+gsutil cp file.jpg gs://[BUCKET_NAME]
+
+# To move file from one bucket to the other bucket
+gsutil mv gs://[BUCKET_1]/file .jpg gs://[BUCKET_2]
+
+#To delete a bucket
+gsutil rm -r gs://[BUCKET_NAME]

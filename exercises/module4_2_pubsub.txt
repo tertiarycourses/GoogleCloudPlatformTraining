@@ -1,0 +1,12 @@
+# Module 4_2: Pub/Sub
+
+pip install --upgrade google-cloud-pubsub
+
+
+gcloud pubsub topics create [topics]
+
+gcloud pubsub subscriptions create --topic [topics] [subscribe]
+
+gcloud pubsub topics publish [topics] --message "hello"
+
+gcloud pubsub subscriptions pull --auto-ack [subscribe]

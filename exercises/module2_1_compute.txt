@@ -1,0 +1,64 @@
+# Module 2_1: Compute
+
+# gcloud Ref
+https://cloud.google.com/sdk/gcloud/reference/
+
+# Login to your project
+gcloud auth login
+
+# Select project
+gcloud config set project PROJECT_ID
+
+# Check gcloud version
+gcloud version 
+
+# List accounts whose credentials 
+gcloud auth list 
+
+# List the properties in your active SDK configuration
+gcloud config list 
+
+# Display information about the current gcloud environment
+gcloud info 
+
+# create and manage project access policies
+gcloud projects
+
+# Create and manipulate Google Compute Engine resources
+gcloud compute
+
+# manage Cloud SQL databases
+gcloud sql
+
+# Deploy and manage clusters of machines for running containers
+gcloud container 
+
+# use Google Cloud machine learning capabilities
+gcloud ml
+
+# manage Cloud ML Engine jobs and models
+gcloud ml-engine
+
+# IoT resources
+gcloud iot
+
+# manage Cloud Pub/Sub topics and subscriptions
+gcloud pubsub
+
+# Google Firebase
+gcloud firebase
+
+# Create a new project by typing:
+gcloud projects create test3-123456
+
+# List the project by typing 
+gcloud projects list
+
+# Delete the project by typing:
+gcloud projects delele
+
+
+
+
+
+
