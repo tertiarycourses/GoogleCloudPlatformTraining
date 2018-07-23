@@ -9,49 +9,56 @@ https://www.tertiarycourses.com.sg/google-cloud-platform-essential-training.html
 
 https://www.tertiarycourses.com.my/google-cloud-platform-essential-training-in-malaysia.html
 
-<p><strong>Module 1 Get Started on Google Cloud Platform</strong></p>
+<p><strong>Module 1 Get Started on Google Cloud</strong> </p>
 <ul>
-<li>Overview of Google Cloud Platform</li>
-<li>Login to Console</li>
+<li>Overview of Google Cloud&nbsp;</li>
+<li>Login to Google Cloud Console</li>
 <li>Create a New Project</li>
-<li>APIs &amp; Services</li>
-<li>Check Your Billing</li>
-</ul>
-<p><strong>Module 2 Compute Engine</strong></p>
-<ul>
-<li>Start a VM instance</li>
+<li>Manage APIs &amp; Services</li>
 <li>Google Cloud SDK</li>
-<li>Connect Your Project via gcloud</li>
-<li>Connect Your VM via gcloud</li>
-<li>Google Cloud Shell</li>
-<li>Install Apache on VM</li>
+<li>Manage Project with gcloud</li>
+</ul>
+<p><strong>Module 2 Compute</strong></p>
+<ul>
+<li>Overview of Compute Services</li>
+<li>Create a VM instance from Console</li>
+<li>Connect VM from Command Line</li>
+<li>Install Apache Web Server on VM</li>
 <li>Delete VM</li>
+<li>Install VM from Marketplace</li>
+<li>Kubernetes Deployment</li>
 </ul>
-<p><br /><strong>Module 3 Cloud API and Credential</strong></p>
+<p><strong>Module 3 Storage</strong> </p>
 <ul>
-<li>API Libraries</li>
-<li>Create OAuth</li>
-<li>Test OAuth</li>
+<li>Overview of Storage Services&nbsp;</li>
+<li>Create Bucket from Console&nbsp;</li>
+<li>Create Bucket from Command Line</li>
 </ul>
-<p><strong>Module 4 Networking</strong></p>
+<p><strong>Module 4 Big Data</strong></p>
 <ul>
+<li>Overview of Big Data Analytics Services</li>
+<li>What is BigQuery</li>
+<li>Get Started on BigQuery</li>
+<li>BigQuery Web UI</li>
+<li>BigQuery Command Lines</li>
+<li>Visualizing BigQuery Data in Jupyter Notebook</li>
+<li>Visualizing BigQuery Data in Google Data Studio</li>
+<li>IoT Pub/Sub Services</li>
+</ul>
+<p><strong>Module 5 Machine Learning</strong></p>
+<ul>
+<li>Overview of Machine Learning Services&nbsp;</li>
+<li>What is Cloud TPU</li>
+<li>Cloud TPU Tensorflow Demo</li>
+<li>Cloud TPU MNIST Demo</li>
+<li>Cloud Machine Learning Engine</li>
+<li>Cloud Vision API</li>
+<li>Cloud Speech To Text API</li>
+</ul>
+<p><strong>Module 6 Networking</strong></p>
+<ul>
+<li>Overview of Networking Services</li>
 <li>Create Static IP</li>
 <li>Create Firewall Rules</li>
 <li>Test out Static IP on Jupyter Notebook</li>
 </ul>
-<p><strong>Module 5 Storage and Database</strong></p>
-<ul>
-<li>Bucket</li>
-<li>Cloud SQL</li>
-<li>Datastore</li>
-<li>Bigtable</li>
-</ul>
-<p><br /><strong>Module 6 Other Services (Optional)</strong></p>
-<ul>
-<li>Pub/Sub</li>
-<li>ML Engine</li>
-</ul>
-
-
-
-
